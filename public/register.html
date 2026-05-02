@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Create Account</h1>
+    <div id="error" class="error hidden"></div>
+    <form id="registerForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" autocomplete="username" required minlength="3" />
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="new-password" required minlength="8" />
+      <label for="confirm">Confirm Password</label>
+      <input type="password" id="confirm" name="confirm" autocomplete="new-password" required minlength="8" />
+      <button type="submit">Create Account</button>
+    </form>
+    <p class="footer-link">Already have an account? <a href="/login">Sign in</a></p>
+  </div>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById('error');
+      errorEl.classList.add('hidden');
+
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+      if (password !== confirm) {
+        errorEl.textContent = 'Passwords do not match.';
+        errorEl.classList.remove('hidden');
+        return;
+      }
+
+      const res = await fetch('/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = '/';
+      } else {
+        errorEl.textContent = data.error;
+        errorEl.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

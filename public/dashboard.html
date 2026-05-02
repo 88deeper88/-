@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Dashboard</h1>
+    <p id="greeting">Welcome!</p>
+    <form action="/auth/logout" method="POST">
+      <button type="submit" class="secondary">Sign Out</button>
+    </form>
+  </div>
+  <script>
+    fetch('/api/me')
+      .then((r) => r.json())
+      .then((data) => {
+        document.getElementById('greeting').textContent = `Welcome, ${data.username}!`;
+      });
+  </script>
+</body>
+</html>
