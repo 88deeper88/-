@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>화진포 Q·D·P — 디자인 컨셉 & 전시 아이디어 제안서</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --q: #1a4a72;
+      --q-light: #d6e8f5;
+      --d: #1c6e3d;
+      --d-light: #d4eedd;
+      --p: #7a4010;
+      --p-light: #f5e6d4;
+      --gold: #c9922a;
+      --ink: #111827;
+      --sub: #4b5563;
+      --muted: #9ca3af;
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --r: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* ─── COVER ─── */
+    .cover {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      background:
+        linear-gradient(175deg, rgba(10,28,50,.92) 0%, rgba(20,70,45,.85) 60%, rgba(100,60,10,.7) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      background-size: cover;
+      color: #fff;
+      padding: 4rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 80px;
+      background: var(--bg);
+      clip-path: ellipse(60% 100% at 50% 100%);
+    }
+    .cover-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 860px;
+      margin: auto;
+      width: 100%;
+    }
+    .cover-meta {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .cover-chip {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 100px;
+      padding: .28rem .85rem;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .cover-eyebrow {
+      font-size: .82rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      opacity: .65;
+      margin-bottom: .75rem;
+    }
+    .cover-title {
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -.03em;
+      margin-bottom: 1rem;
+    }
+    .cover-title em {
+      font-style: normal;
+      color: #7ec8e3;
+    }
+    .cover-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      opacity: .8;
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .cover-letters {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .cl-item {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .cl-letter {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 900;
+    }
+    .cl-letter.q { background: var(--q); }
+    .cl-letter.d { background: var(--d); }
+    .cl-letter.p { background: var(--p); }
+    .cl-text .en { font-size: .68rem; opacity: .6; letter-spacing: .1em; text-transform: uppercase; }
+    .cl-text .ko { font-size: .9rem; font-weight: 700; }
+
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,.15);
+      font-size: .78rem;
+      opacity: .55;
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ─── NAV ─── */
+    .toc-nav {
+      background: var(--ink);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      gap: .5rem 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .toc-nav a {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      transition: color .15s;
+      white-space: nowrap;
+    }
+    .toc-nav a:hover { color: #fff; }
+
+    /* ─── LAYOUT ─── */
+    .wrap {
+      max-width: 960px;
+      margin-inline: auto;
+      padding: 3.5rem 1.5rem;
+    }
+    .wrap + .wrap { padding-top: 0; }
+
+    .section-eyebrow {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+    .section-title {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: .6rem;
+    }
+    .section-desc {
+      font-size: .95rem;
+      color: var(--sub);
+      max-width: 620px;
+      margin-bottom: 2.2rem;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 1.5rem;
+    }
+
+    /* ─── CONCEPT KEYWORD ─── */
+    .keyword-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .kw-card {
+      border-radius: var(--r);
+      padding: 2rem 1.6rem 1.8rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .kw-card.q { background: linear-gradient(135deg, #0d2e4d 0%, var(--q) 100%); }
+    .kw-card.d { background: linear-gradient(135deg, #0d3620 0%, var(--d) 100%); }
+    .kw-card.p { background: linear-gradient(135deg, #3d1e06 0%, var(--p) 100%); }
+    .kw-bg-letter {
+      position: absolute;
+      right: -.1em; bottom: -.25em;
+      font-size: 8rem; font-weight: 900;
+      opacity: .1; line-height: 1; pointer-events: none;
+    }
+    .kw-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border-radius: 100px;
+      padding: .2rem .7rem;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: .9rem;
+    }
+    .kw-letter { font-size: 3rem; font-weight: 900; line-height: 1; margin-bottom: .3rem; }
+    .kw-name { font-size: 1.15rem; font-weight: 700; margin-bottom: .75rem; }
+    .kw-desc { font-size: .83rem; opacity: .85; line-height: 1.65; }
+    .kw-tags {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+      margin-top: 1rem;
+    }
+    .kw-tag {
+      background: rgba(255,255,255,.15);
+      border-radius: 6px;
+      padding: .15rem .55rem;
+      font-size: .68rem; font-weight: 600;
+    }
+
+    /* ─── DESIGN IDENTITY ─── */
+    .identity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .id-card {
+      background: var(--surface);
+      border-radius: var(--r);
+      padding: 1.6rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+    .id-icon { font-size: 1.8rem; margin-bottom: .7rem; }
+    .id-title { font-size: .95rem; font-weight: 800; margin-bottom: .4rem; }
+    .id-desc { font-size: .83rem; color: var(--sub); line-height: 1.6; }
+
+    /* ─── COLOR PALETTE ─── */
+    .palette {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .swatch {
+      flex: 1 1 100px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      min-width: 90px;
+    }
+    .swatch-color { height: 80px; }
+    .swatch-info {
+      background: var(--surface);
+      padding: .6rem .75rem;
+    }
+    .swatch-name { font-size: .78rem; font-weight: 700; }
+    .swatch-hex { font-size: .68rem; color: var(--muted); font-family: monospace; }
+    .swatch-role { font-size: .68rem; color: var(--sub); }
+
+    /* ─── MATERIAL CARDS ─── */
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .mat-card {
+      background: var(--surface);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+    .mat-swatch {
+      height: 60px;
+    }
+    .mat-body { padding: .9rem 1rem; }
+    .mat-name { font-size: .85rem; font-weight: 700; margin-bottom: .2rem; }
+    .mat-desc { font-size: .75rem; color: var(--sub); line-height: 1.5; }
+    .mat-zone {
+      display: inline-block;
+      font-size: .62rem; font-weight: 700;
+      border-radius: 100px; padding: .12rem .45rem;
+      color: #fff; margin-top: .4rem;
+    }
+    .mat-zone.q { background: var(--q); }
+    .mat-zone.d { background: var(--d); }
+    .mat-zone.p { background: var(--p); }
+    .mat-zone.all { background: #374151; }
+
+    /* ─── IDEA ITEMS ─── */
+    .idea-section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: .75rem;
+      border-bottom: 2px solid;
+    }
+    .idea-section-header.q { border-color: var(--q); }
+    .idea-section-header.d { border-color: var(--d); }
+    .idea-section-header.p { border-color: var(--p); }
+    .ish-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .idea-section-header.q .ish-dot { background: var(--q); }
+    .idea-section-header.d .ish-dot { background: var(--d); }
+    .idea-section-header.p .ish-dot { background: var(--p); }
+    .ish-letter {
+      font-size: 2rem; font-weight: 900; line-height: 1;
+    }
+    .idea-section-header.q .ish-letter { color: var(--q); }
+    .idea-section-header.d .ish-letter { color: var(--d); }
+    .idea-section-header.p .ish-letter { color: var(--p); }
+    .ish-text .ish-en { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .ish-text .ish-ko { font-size: 1.1rem; font-weight: 800; }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .item-card {
+      background: var(--surface);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      border-top: 4px solid transparent;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .item-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    }
+    .item-card.q { border-top-color: var(--q); }
+    .item-card.d { border-top-color: var(--d); }
+    .item-card.p { border-top-color: var(--p); }
+    .item-icon { font-size: 2rem; margin-bottom: .65rem; }
+    .item-title { font-size: .98rem; font-weight: 800; margin-bottom: .45rem; }
+    .item-desc { font-size: .82rem; color: var(--sub); line-height: 1.65; margin-bottom: .9rem; }
+    .item-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .item-tag {
+      background: var(--bg);
+      border-radius: 6px;
+      padding: .15rem .5rem;
+      font-size: .67rem;
+      font-weight: 600;
+      color: var(--sub);
+    }
+    .item-tag.highlight {
+      background: var(--q-light);
+      color: var(--q);
+    }
+    .item-card.d .item-tag.highlight { background: var(--d-light); color: var(--d); }
+    .item-card.p .item-tag.highlight { background: var(--p-light); color: var(--p); }
+
+    /* ─── LIGHTING ─── */
+    .lighting-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .light-card {
+      background: var(--surface);
+      border-radius: var(--r);
+      padding: 1.4rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .light-preview {
+      width: 100%;
+      height: 50px;
+      border-radius: 8px;
+      margin-bottom: .3rem;
+    }
+    .light-title { font-size: .88rem; font-weight: 700; }
+    .light-spec { font-size: .75rem; color: var(--muted); font-family: monospace; }
+    .light-desc { font-size: .78rem; color: var(--sub); line-height: 1.5; }
+
+    /* ─── FLOOR PLAN SCHEMATIC ─── */
+    .floorplan {
+      background: var(--surface);
+      border-radius: var(--r);
+      padding: 2.5rem;
+      box-shadow: 0 2px 14px rgba(0,0,0,.06);
+      margin-bottom: 2.5rem;
+    }
+    .fp-svg-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .fp-svg-wrap svg {
+      min-width: 600px;
+      width: 100%;
+      max-width: 860px;
+      display: block;
+      margin: auto;
+    }
+
+    /* ─── PROGRAM TABLE ─── */
+    .prog-table-wrap {
+      overflow-x: auto;
+      margin-bottom: 2.5rem;
+    }
+    .prog-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .85rem;
+      background: var(--surface);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+    .prog-table thead tr { background: var(--ink); color: #fff; }
+    .prog-table th {
+      padding: .85rem 1.1rem;
+      text-align: left;
+      font-size: .72rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .prog-table td {
+      padding: .9rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .prog-table tr:last-child td { border-bottom: none; }
+    .prog-table tr:nth-child(even) td { background: #fafafa; }
+    .pill {
+      display: inline-block;
+      border-radius: 100px;
+      padding: .18rem .6rem;
+      font-size: .68rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .pill.q { background: var(--q); }
+    .pill.d { background: var(--d); }
+    .pill.p { background: var(--p); }
+    .pill.all { background: #374151; }
+
+    /* ─── BUDGET ─── */
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .bud-card {
+      background: var(--surface);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      border-left: 4px solid var(--border);
+    }
+    .bud-card.q { border-left-color: var(--q); }
+    .bud-card.d { border-left-color: var(--d); }
+    .bud-card.p { border-left-color: var(--p); }
+    .bud-card.op { border-left-color: var(--gold); }
+    .bud-label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
+    .bud-amount { font-size: 1.4rem; font-weight: 900; margin-bottom: .2rem; }
+    .bud-desc { font-size: .75rem; color: var(--sub); }
+
+    /* ─── TIMELINE ─── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -1.75rem; top: .3rem;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 3px solid var(--muted);
+    }
+    .tl-item.active::before { border-color: var(--q); background: var(--q); }
+    .tl-phase {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .15rem;
+    }
+    .tl-title { font-size: .95rem; font-weight: 700; margin-bottom: .2rem; }
+    .tl-desc { font-size: .8rem; color: var(--sub); }
+
+    /* ─── FOOTER ─── */
+    .page-footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.45);
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: .78rem;
+    }
+    .page-footer strong { color: rgba(255,255,255,.9); font-size: 1rem; display: block; margin-bottom: .4rem; }
+    .footer-marks {
+      display: flex;
+      justify-content: center;
+      gap: .6rem;
+      margin-top: 1rem;
+    }
+    .footer-mark {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1rem; color: #fff;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 680px) {
+      .cover { padding: 3rem 1.25rem; }
+      .keyword-grid { grid-template-columns: 1fr; }
+      .identity-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     COVER PAGE
+══════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-body">
+    <div class="cover-meta">
+      <span class="cover-chip">디자인 컨셉 제안서</span>
+      <span class="cover-chip">실내 전시공간</span>
+      <span class="cover-chip">화진포 관광 커뮤니티</span>
+      <span class="cover-chip">2026</span>
+    </div>
+    <p class="cover-eyebrow">Hwajinpo Tourism Community · Indoor Exhibition Space</p>
+    <h1 class="cover-title"><em>Q·D·P</em></h1>
+    <p class="cover-tagline">
+      탐구하고, 발견하고, 함께 잇다.<br>
+      화진포의 자연·역사·사람이 한 공간에서 살아 숨 쉬는 전시플랫폼.
+    </p>
+    <div class="cover-letters">
+      <div class="cl-item">
+        <div class="cl-letter q">Q</div>
+        <div class="cl-text">
+          <div class="en">Quest</div>
+          <div class="ko">탐구 · 질문</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-letter d">D</div>
+        <div class="cl-text">
+          <div class="en">Discovery</div>
+          <div class="ko">발견 · 깊이</div>
+        </div>
+      </div>
+      <div class="cl-item">
+        <div class="cl-letter p">P</div>
+        <div class="cl-text">
+          <div class="en">Platform</div>
+          <div class="ko">플랫폼 · 연결</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <span>화진포 관광 커뮤니티 실내 전시공간 디자인 컨셉 & 아이디어 제안서</span>
+    <span>Ver 1.0 · 2026</span>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="toc-nav">
+  <a href="#concept">01 디자인 컨셉</a>
+  <a href="#identity">02 공간 정체성</a>
+  <a href="#palette">03 컬러 · 소재</a>
+  <a href="#floorplan">04 평면 구성</a>
+  <a href="#items">05 전시 아이디어 아이템</a>
+  <a href="#lighting">06 조명 계획</a>
+  <a href="#program">07 운영 프로그램</a>
+  <a href="#budget">08 예산 개요</a>
+  <a href="#timeline">09 추진 일정</a>
+</nav>
+
+<!-- ══════════════════════════════════════
+     01 DESIGN CONCEPT
+══════════════════════════════════════ -->
+<div class="wrap" id="concept">
+  <p class="section-eyebrow">01 · Design Concept</p>
+  <h2 class="section-title">디자인 컨셉</h2>
+  <p class="section-desc">
+    Q·D·P는 화진포 석호의 '겹겹이 쌓인 시간'을 공간 언어로 번역한다.
+    바닥에서 천장까지, 입구에서 출구까지 자연·역사·사람의 레이어가
+    방문객의 동선에 따라 순차적으로 열리는 구조다.
+  </p>
+
+  <div class="keyword-grid">
+    <div class="kw-card q">
+      <div class="kw-bg-letter">Q</div>
+      <div class="kw-badge">Zone 01</div>
+      <div class="kw-letter">Q</div>
+      <div class="kw-name">Quest — 탐구의 입구</div>
+      <div class="kw-desc">
+        모든 전시의 시작은 질문이다. 방문객이 첫 걸음을 내딛는 순간,
+        "이 호수는 왜 바다 옆에 있을까?" 라는 물음이 공간 전체에 흐른다.
+        정보를 주기 전에 호기심을 심는다.
+      </div>
+      <div class="kw-tags">
+        <span class="kw-tag">호기심 유발</span>
+        <span class="kw-tag">감각 전환</span>
+        <span class="kw-tag">도입 서사</span>
+        <span class="kw-tag">인터랙션</span>
+      </div>
+    </div>
+    <div class="kw-card d">
+      <div class="kw-bg-letter">D</div>
+      <div class="kw-badge">Zone 02</div>
+      <div class="kw-letter">D</div>
+      <div class="kw-name">Discovery — 발견의 레이어</div>
+      <div class="kw-desc">
+        화진포의 생태, 냉전 역사, 지역 주민의 삶을 세 겹의 레이어로 쌓는다.
+        관람객은 자신의 속도로 레이어를 벗겨 가며 이야기를 발견한다.
+        설명판 대신 체험과 오브제가 말을 건넨다.
+      </div>
+      <div class="kw-tags">
+        <span class="kw-tag">석호 생태</span>
+        <span class="kw-tag">역사 서사</span>
+        <span class="kw-tag">구술 아카이브</span>
+        <span class="kw-tag">몰입 체험</span>
+      </div>
+    </div>
+    <div class="kw-card p">
+      <div class="kw-bg-letter">P</div>
+      <div class="kw-badge">Zone 03</div>
+      <div class="kw-letter">P</div>
+      <div class="kw-name">Platform — 연결의 광장</div>
+      <div class="kw-desc">
+        전시의 끝은 지역 커뮤니티로의 입장이다. 주민·생산자·방문객이
+        상품·이야기·경험을 교환하는 살아있는 플랫폼. 재방문을 만드는
+        계절마다 바뀌는 살아있는 공간.
+      </div>
+      <div class="kw-tags">
+        <span class="kw-tag">로컬 마켓</span>
+        <span class="kw-tag">커뮤니티 허브</span>
+        <span class="kw-tag">이벤트 스테이지</span>
+        <span class="kw-tag">수익 자립</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     02 SPACE IDENTITY
+══════════════════════════════════════ -->
+<div class="wrap" id="identity">
+  <p class="section-eyebrow">02 · Space Identity</p>
+  <h2 class="section-title">공간 정체성 & 디자인 원칙</h2>
+  <p class="section-desc">
+    화진포 석호의 본질적 특성 — 투명하게 겹치는 물의 레이어, 바람, 갈대,
+    시간의 퇴적 — 을 공간 경험으로 번역한 6가지 설계 원칙.
+  </p>
+
+  <div class="identity-grid">
+    <div class="id-card">
+      <div class="id-icon">🌊</div>
+      <div class="id-title">레이어드 투명성 (Layered Transparency)</div>
+      <div class="id-desc">
+        강화유리·반투명 아크릴·메시 소재를 겹쳐 석호 수면의 깊이감을 실내에 재현한다.
+        한 공간에서 다음 공간이 어렴풋이 보이는 연속성을 설계한다.
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="id-icon">🪨</div>
+      <div class="id-title">로컬 소재 우선 (Local Materials First)</div>
+      <div class="id-desc">
+        강원도 고성·속초 산 화강암, 갯벌 점토, 재활용 어망 등 화진포 반경 내
+        소재를 우선 채택한다. 공간 자체가 지역의 물질 아카이브가 된다.
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="id-icon">🌬️</div>
+      <div class="id-title">공기의 흐름 (Air Circulation)</div>
+      <div class="id-desc">
+        입구에서 출구로 자연스러운 기류를 만들어 체온 변화로 공간 이동을 느끼게 한다.
+        Q존(서늘) → D존(중간) → P존(따뜻)의 온도 그라디언트를 설계한다.
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="id-icon">🕰️</div>
+      <div class="id-title">시간의 퇴적 (Temporal Layers)</div>
+      <div class="id-desc">
+        바닥·벽·천장에 지질시대 → 근현대 → 현재의 타임라인을 레이어로 새긴다.
+        위를 보면 현재, 아래를 보면 과거가 펼쳐지는 수직 시간 구조.
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="id-icon">🔊</div>
+      <div class="id-title">사운드스케이프 (Soundscape)</div>
+      <div class="id-desc">
+        존마다 현장 녹음 사운드를 배경으로 깐다. Q존(파도+바람),
+        D존(갈대 스침+철새 소리), P존(시장 소음+웃음소리).
+        시각 없이도 공간 이동이 느껴지는 청각 설계.
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="id-icon">♻️</div>
+      <div class="id-title">순환하는 전시 (Rotating Content)</div>
+      <div class="id-desc">
+        P존 갤러리와 마켓은 계절마다 교체된다. 고정 전시 80% + 순환 전시 20% 비율로
+        재방문 동기를 만들고 지역 생산자의 노출 기회를 확장한다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     03 COLOR & MATERIAL
+══════════════════════════════════════ -->
+<div class="wrap" id="palette">
+  <p class="section-eyebrow">03 · Color & Material</p>
+  <h2 class="section-title">컬러 팔레트 & 소재 제안</h2>
+  <p class="section-desc">화진포의 물·숲·모래·암석에서 추출한 자연 유래 컬러 시스템.</p>
+
+  <div class="palette">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0d2137"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Deep Lagoon</div>
+        <div class="swatch-hex">#0D2137</div>
+        <div class="swatch-role">Q존 베이스</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1a4a72"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Lake Blue</div>
+        <div class="swatch-hex">#1A4A72</div>
+        <div class="swatch-role">Q존 포인트</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#7ec8e3"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Shallow Water</div>
+        <div class="swatch-hex">#7EC8E3</div>
+        <div class="swatch-role">Q존 액센트</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1c6e3d"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Reed Green</div>
+        <div class="swatch-hex">#1C6E3D</div>
+        <div class="swatch-role">D존 베이스</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#8db87a"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Wetland Moss</div>
+        <div class="swatch-hex">#8DB87A</div>
+        <div class="swatch-role">D존 액센트</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#c9922a"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Tide Sand</div>
+        <div class="swatch-hex">#C9922A</div>
+        <div class="swatch-role">P존 포인트</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#7a4010"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Driftwood</div>
+        <div class="swatch-hex">#7A4010</div>
+        <div class="swatch-role">P존 베이스</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#f7f5f0"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Sea Fog</div>
+        <div class="swatch-hex">#F7F5F0</div>
+        <div class="swatch-role">전체 배경</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:.9rem;font-weight:800;margin-bottom:1rem;color:var(--sub);letter-spacing:.05em;text-transform:uppercase;">마감 소재 제안</h3>
+  <div class="material-grid">
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#c8d6df,#9eb5c3)"></div>
+      <div class="mat-body">
+        <div class="mat-name">블루-그레이 시멘트 보드</div>
+        <div class="mat-desc">Q존 메인 월, 석호의 새벽빛 표현. 질감 노출 마감</div>
+        <span class="mat-zone q">Q존</span>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#d0e8f0,#a8d4e6); position:relative; overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(255,255,255,.25) 4px,rgba(255,255,255,.25) 5px)"></div>
+      </div>
+      <div class="mat-body">
+        <div class="mat-name">리플 강화유리 패널</div>
+        <div class="mat-desc">물결 패턴 강화유리, Q존 천장 및 칸막이</div>
+        <span class="mat-zone q">Q존</span>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#2d4a2d,#4a7a3d)"></div>
+      <div class="mat-body">
+        <div class="mat-name">대나무 / 갈대 패널</div>
+        <div class="mat-desc">화진포 자생 갈대 가공 패널, D존 파티션 및 천장 요소</div>
+        <span class="mat-zone d">D존</span>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#7a6a5a,#a08a72)"></div>
+      <div class="mat-body">
+        <div class="mat-name">강원 화강암 슬래브</div>
+        <div class="mat-desc">고성산 화강암, D존 바닥 및 전시대 상판</div>
+        <span class="mat-zone d">D존</span>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#c8a87a,#e8c89a)"></div>
+      <div class="mat-body">
+        <div class="mat-name">내추럴 황토 미장</div>
+        <div class="mat-desc">P존 메인 월, 황토+짚 혼합 전통 미장. 습도 조절 기능</div>
+        <span class="mat-zone p">P존</span>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#5a4030,#7a5a40); background-image: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.1) 3px,rgba(0,0,0,.1) 4px)"></div>
+      <div class="mat-body">
+        <div class="mat-name">재활용 어망 월 스크린</div>
+        <div class="mat-desc">폐어망 재가공 직조 스크린, P존 갤러리 배경 및 상품 디스플레이</div>
+        <span class="mat-zone p">P존</span>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#e0ddd8,#ccc9c0)"></div>
+      <div class="mat-body">
+        <div class="mat-name">재생 목재 (소나무)</div>
+        <div class="mat-desc">강원 소나무 재생 목재, 가구·전시대·바닥 일부 전 존 공통</div>
+        <span class="mat-zone all">공통</span>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-swatch" style="background: linear-gradient(135deg,#2a2a2a,#4a4a4a)"></div>
+      <div class="mat-body">
+        <div class="mat-name">블랙 스틸 프레임</div>
+        <div class="mat-desc">구조용 노출 스틸 프레임, 산업적 디테일로 내추럴 소재와 대비</div>
+        <span class="mat-zone all">공통</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     04 FLOOR PLAN
+══════════════════════════════════════ -->
+<div class="wrap" id="floorplan">
+  <p class="section-eyebrow">04 · Floor Plan Schematic</p>
+  <h2 class="section-title">평면 구성 다이어그램</h2>
+  <p class="section-desc">입구 → Q존 → D존(3레이어) → P존 → 출구로 이어지는 단방향 내러티브 동선.</p>
+
+  <div class="floorplan">
+    <div class="fp-svg-wrap">
+      <svg viewBox="0 0 820 360" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Noto Sans KR',sans-serif">
+        <!-- Background -->
+        <rect width="820" height="360" fill="#f7f5f0" rx="8"/>
+
+        <!-- Outer walls -->
+        <rect x="20" y="30" width="780" height="300" rx="10" fill="none" stroke="#374151" stroke-width="3"/>
+
+        <!-- Entrance arrow -->
+        <text x="56" y="22" font-size="10" fill="#9ca3af" font-weight="600" letter-spacing="1">입구 ENTRANCE</text>
+        <line x1="60" y1="30" x2="60" y2="8" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#374151"/>
+          </marker>
+          <marker id="arrd" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#6b7280"/>
+          </marker>
+        </defs>
+
+        <!-- Q Zone -->
+        <rect x="30" y="40" width="155" height="280" rx="6" fill="#d6e8f5" stroke="#1a4a72" stroke-width="2"/>
+        <text x="107" y="75" text-anchor="middle" font-size="28" font-weight="900" fill="#1a4a72">Q</text>
+        <text x="107" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#1a4a72">QUEST</text>
+        <text x="107" y="110" text-anchor="middle" font-size="9" fill="#4b5563">탐구 · 도입</text>
+
+        <!-- Q items -->
+        <rect x="42" y="122" width="131" height="22" rx="4" fill="rgba(26,74,114,.12)"/>
+        <text x="107" y="137" text-anchor="middle" font-size="8.5" fill="#1a4a72" font-weight="600">🌊 사운드 터널</text>
+        <rect x="42" y="150" width="131" height="22" rx="4" fill="rgba(26,74,114,.12)"/>
+        <text x="107" y="165" text-anchor="middle" font-size="8.5" fill="#1a4a72" font-weight="600">❓ 질문 월</text>
+        <rect x="42" y="178" width="131" height="22" rx="4" fill="rgba(26,74,114,.12)"/>
+        <text x="107" y="193" text-anchor="middle" font-size="8.5" fill="#1a4a72" font-weight="600">🗺️ 바닥 타임라인</text>
+        <rect x="42" y="206" width="131" height="22" rx="4" fill="rgba(26,74,114,.12)"/>
+        <text x="107" y="221" text-anchor="middle" font-size="8.5" fill="#1a4a72" font-weight="600">📷 기록 스팟</text>
+
+        <!-- D Zone -->
+        <rect x="198" y="40" width="370" height="280" rx="6" fill="#d4eedd" stroke="#1c6e3d" stroke-width="2"/>
+        <text x="383" y="75" text-anchor="middle" font-size="28" font-weight="900" fill="#1c6e3d">D</text>
+        <text x="383" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#1c6e3d">DISCOVERY</text>
+        <text x="383" y="110" text-anchor="middle" font-size="9" fill="#4b5563">발견 · 핵심 전시</text>
+
+        <!-- D Layer 1 -->
+        <rect x="208" y="122" width="108" height="180" rx="5" fill="rgba(28,110,61,.1)" stroke="#1c6e3d" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="262" y="142" text-anchor="middle" font-size="8" font-weight="700" fill="#1c6e3d">Layer 1</text>
+        <text x="262" y="154" text-anchor="middle" font-size="7.5" fill="#4b5563">🌿 자연생태</text>
+        <text x="262" y="175" text-anchor="middle" font-size="7.5" fill="#4b5563">석호 디오라마</text>
+        <text x="262" y="188" text-anchor="middle" font-size="7.5" fill="#4b5563">AR 탐사 키오스크</text>
+        <text x="262" y="201" text-anchor="middle" font-size="7.5" fill="#4b5563">360° 몰입 스크린</text>
+        <text x="262" y="214" text-anchor="middle" font-size="7.5" fill="#4b5563">오픈 랩 테이블</text>
+
+        <!-- D Layer 2 -->
+        <rect x="328" y="122" width="108" height="180" rx="5" fill="rgba(28,110,61,.1)" stroke="#1c6e3d" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="382" y="142" text-anchor="middle" font-size="8" font-weight="700" fill="#1c6e3d">Layer 2</text>
+        <text x="382" y="154" text-anchor="middle" font-size="7.5" fill="#4b5563">🏛️ 역사별장</text>
+        <text x="382" y="175" text-anchor="middle" font-size="7.5" fill="#4b5563">별장 공간 재현</text>
+        <text x="382" y="188" text-anchor="middle" font-size="7.5" fill="#4b5563">냉전 서사 아카이브</text>
+        <text x="382" y="201" text-anchor="middle" font-size="7.5" fill="#4b5563">사진 연표</text>
+        <text x="382" y="214" text-anchor="middle" font-size="7.5" fill="#4b5563">음성 가이드</text>
+
+        <!-- D Layer 3 -->
+        <rect x="448" y="122" width="108" height="180" rx="5" fill="rgba(28,110,61,.1)" stroke="#1c6e3d" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="502" y="142" text-anchor="middle" font-size="8" font-weight="700" fill="#1c6e3d">Layer 3</text>
+        <text x="502" y="154" text-anchor="middle" font-size="7.5" fill="#4b5563">👤 지역 사람들</text>
+        <text x="502" y="175" text-anchor="middle" font-size="7.5" fill="#4b5563">구술 영상 부스</text>
+        <text x="502" y="188" text-anchor="middle" font-size="7.5" fill="#4b5563">생업 변화 그래픽</text>
+        <text x="502" y="201" text-anchor="middle" font-size="7.5" fill="#4b5563">발견 노트 스테이션</text>
+        <text x="502" y="214" text-anchor="middle" font-size="7.5" fill="#4b5563">사진 전시</text>
+
+        <!-- P Zone -->
+        <rect x="581" y="40" width="209" height="280" rx="6" fill="#f5e6d4" stroke="#7a4010" stroke-width="2"/>
+        <text x="685" y="75" text-anchor="middle" font-size="28" font-weight="900" fill="#7a4010">P</text>
+        <text x="685" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#7a4010">PLATFORM</text>
+        <text x="685" y="110" text-anchor="middle" font-size="9" fill="#4b5563">커뮤니티 · 플랫폼</text>
+
+        <!-- P items -->
+        <rect x="593" y="122" width="86" height="22" rx="4" fill="rgba(122,64,16,.12)"/>
+        <text x="636" y="137" text-anchor="middle" font-size="8.5" fill="#7a4010" font-weight="600">🛒 로컬 마켓</text>
+        <rect x="686" y="122" width="86" height="22" rx="4" fill="rgba(122,64,16,.12)"/>
+        <text x="729" y="137" text-anchor="middle" font-size="8.5" fill="#7a4010" font-weight="600">🎨 갤러리</text>
+        <rect x="593" y="150" width="86" height="22" rx="4" fill="rgba(122,64,16,.12)"/>
+        <text x="636" y="165" text-anchor="middle" font-size="8.5" fill="#7a4010" font-weight="600">☕ 로컬 카페</text>
+        <rect x="686" y="150" width="86" height="22" rx="4" fill="rgba(122,64,16,.12)"/>
+        <text x="729" y="165" text-anchor="middle" font-size="8.5" fill="#7a4010" font-weight="600">📌 핀보드</text>
+        <rect x="593" y="178" width="179" height="22" rx="4" fill="rgba(122,64,16,.12)"/>
+        <text x="682" y="193" text-anchor="middle" font-size="8.5" fill="#7a4010" font-weight="600">🗓️ 이벤트 스테이지</text>
+        <rect x="593" y="206" width="179" height="22" rx="4" fill="rgba(122,64,16,.12)"/>
+        <text x="682" y="221" text-anchor="middle" font-size="8.5" fill="#7a4010" font-weight="600">📲 디지털 키오스크</text>
+
+        <!-- Flow arrows -->
+        <line x1="186" y1="180" x2="196" y2="180" stroke="#6b7280" stroke-width="2" marker-end="url(#arrd)"/>
+        <line x1="569" y1="180" x2="579" y2="180" stroke="#6b7280" stroke-width="2" marker-end="url(#arrd)"/>
+
+        <!-- Exit -->
+        <line x1="762" y1="330" x2="762" y2="352" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+        <text x="762" y="362" text-anchor="middle" font-size="10" fill="#9ca3af" font-weight="600">출구 EXIT</text>
+
+        <!-- Size labels -->
+        <text x="107" y="305" text-anchor="middle" font-size="8" fill="#6b7280">약 60㎡</text>
+        <text x="383" y="305" text-anchor="middle" font-size="8" fill="#6b7280">약 200㎡</text>
+        <text x="685" y="305" text-anchor="middle" font-size="8" fill="#6b7280">약 120㎡</text>
+
+        <!-- Legend -->
+        <text x="30" y="345" font-size="8" fill="#9ca3af">단위 면적은 실제 공간에 따라 조정. 총 전시면적 기준 약 380㎡ 권장.</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     05 EXHIBITION IDEA ITEMS
+══════════════════════════════════════ -->
+<div class="wrap" id="items">
+  <p class="section-eyebrow">05 · Exhibition Idea Items</p>
+  <h2 class="section-title">전시 아이디어 아이템 제안</h2>
+  <p class="section-desc">각 존의 컨셉을 구현하는 구체적인 전시 아이템 32개 제안.</p>
+
+  <!-- Q Zone Items -->
+  <div class="idea-section-header q">
+    <span class="ish-dot"></span>
+    <span class="ish-letter">Q</span>
+    <div class="ish-text">
+      <div class="ish-en">Quest Zone · 탐구 도입</div>
+      <div class="ish-ko">감각을 열고 질문을 심는 공간</div>
+    </div>
+  </div>
+  <div class="items-grid">
+    <div class="item-card q">
+      <div class="item-icon">🌊</div>
+      <div class="item-title">화진포 사운드 터널 (몰입형 음향 통로)</div>
+      <div class="item-desc">입구 복도 양벽에 다채널 스피커를 매립. 파도·바람·철새 소리를 3D 공간 음향으로 연출. 관람객이 첫 걸음부터 화진포 현장감을 느낀다.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">핵심 아이템</span>
+        <span class="item-tag">사운드 인스톨레이션</span>
+        <span class="item-tag">저예산 가능</span>
+      </div>
+    </div>
+    <div class="item-card q">
+      <div class="item-icon">❓</div>
+      <div class="item-title">질문 월 (Question Wall)</div>
+      <div class="item-desc">3×4m 대형 패널에 화진포에 관한 11개 질문을 레이저 각인. "이 호수는 왜 짜지 않을까?" 등. 각 질문 하단에 D존 위치 힌트를 QR로 연결.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">도입 서사</span>
+        <span class="item-tag">그래픽 디자인</span>
+        <span class="item-tag">QR 인터랙션</span>
+      </div>
+    </div>
+    <div class="item-card q">
+      <div class="item-icon">🪟</div>
+      <div class="item-title">리플 글라스 파티션</div>
+      <div class="item-desc">물결 무늬 열처리 강화유리 파티션으로 Q존과 D존을 분리. 빛이 통과하며 물 아래 세계의 왜곡 효과를 시각화. 낮과 밤 달라 보이는 가변적 경계.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">건축 요소</span>
+        <span class="item-tag">가변 조명 연동</span>
+      </div>
+    </div>
+    <div class="item-card q">
+      <div class="item-icon">🗺️</div>
+      <div class="item-title">바닥 타임라인 그래픽</div>
+      <div class="item-desc">화강암 바닥에 에폭시+UV 인쇄로 지질시대~현재의 화진포 타임라인을 새긴다. 관람객이 시간을 '걷는' 경험. 조명으로 야간에 빛나도록 설계.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">바닥 인터랙션</span>
+        <span class="item-tag">인포그래픽</span>
+      </div>
+    </div>
+    <div class="item-card q">
+      <div class="item-icon">🪞</div>
+      <div class="item-title">수면 반사 천장 인스톨레이션</div>
+      <div class="item-desc">Q존 천장 전체에 부분 반사 메탈릭 소재 + 미세 진동 장치로 물결 반사를 연출. 바닥 조명과 연동해 물속에 들어온 듯한 착각 공간 구현.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">몰입 연출</span>
+        <span class="item-tag">조명 연동</span>
+      </div>
+    </div>
+    <div class="item-card q">
+      <div class="item-icon">📷</div>
+      <div class="item-title">방문객 기록 스팟 + 디지털 아카이브</div>
+      <div class="item-desc">입구 벽면에 QR 스탬프 포인트 설치. 방문객이 "오늘 내가 화진포에 온 이유"를 음성/텍스트로 남기면 P존 디지털 핀보드에 실시간 반영.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">커뮤니티 연결</span>
+        <span class="item-tag">QR 인터랙션</span>
+        <span class="item-tag">아카이브</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D Zone Items -->
+  <div class="idea-section-header d">
+    <span class="ish-dot"></span>
+    <span class="ish-letter">D</span>
+    <div class="ish-text">
+      <div class="ish-en">Discovery Zone · 발견 핵심 전시</div>
+      <div class="ish-ko">자연·역사·사람 3레이어를 스스로 발견하는 공간</div>
+    </div>
+  </div>
+  <div class="items-grid">
+    <div class="item-card d">
+      <div class="item-icon">🌿</div>
+      <div class="item-title">화진포 석호 생태 디오라마</div>
+      <div class="item-desc">1:20 스케일 석호 단면 디오라마. 담수·기수층·수생식물·철새·담수어를 레이어로 표현. 조명 변화로 계절 변화를 5분 주기로 연출.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Layer 1 핵심</span>
+        <span class="item-tag">실물 모형</span>
+        <span class="item-tag">교육 연계</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">🔬</div>
+      <div class="item-title">AR 수중 탐사 키오스크</div>
+      <div class="item-desc">터치스크린 + AR 카메라로 화진포 수중 생태를 실시간 탐사하듯 체험. 어종·식물 터치 시 정보 팝업. 어린이 버전 / 성인 버전 UI 분리.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Layer 1 핵심</span>
+        <span class="item-tag">AR 인터랙션</span>
+        <span class="item-tag">어린이 친화</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">🎞️</div>
+      <div class="item-title">360° 몰입 영상 스크린룸</div>
+      <div class="item-desc">6m×3m 곡면 스크린에 4K 드론·수중 영상으로 사계절 화진포를 상영. 봄 철새 이동, 여름 석호 수면, 가을 갈대밭, 겨울 결빙을 10분 루프로.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">몰입 핵심</span>
+        <span class="item-tag">영상 미디어</span>
+        <span class="item-tag">계절 연출</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">🧪</div>
+      <div class="item-title">오픈 랩 테이블 (생태 관찰 체험)</div>
+      <div class="item-desc">석호 퇴적물 샘플, 수생식물 표본, 패각 컬렉션을 직접 만지고 현미경으로 관찰. 교육 프로그램 연계 가능한 4인 워크테이블 2세트.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Layer 1 체험</span>
+        <span class="item-tag">촉각 경험</span>
+        <span class="item-tag">단체 교육</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">🏛️</div>
+      <div class="item-title">역사 별장 공간 재현 모형</div>
+      <div class="item-desc">김일성·이기붕·이승만 별장의 1:15 건축 모형 3점. 각 모형 주변에 당시 생활 오브제 배치. 모형 하단 조명으로 공간감 강조.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Layer 2 핵심</span>
+        <span class="item-tag">역사 아카이브</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">📰</div>
+      <div class="item-title">냉전 시대 동해안 서사 아카이브 월</div>
+      <div class="item-desc">1945~1970년대 화진포 인근 실제 신문 기사·사진을 확대 인쇄한 6m 아카이브 월. 분단 전후의 해수욕장·별장 변천사를 연대순 타임라인으로 구성.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Layer 2 서사</span>
+        <span class="item-tag">역사 그래픽</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">🎧</div>
+      <div class="item-title">개인 음성 가이드 스팟 (QR 오디오)</div>
+      <div class="item-desc">전시 전 구역 30개 포인트에 QR 오디오 가이드 연결. 스마트폰 자체 이어폰으로 현장 해설 청취 가능. 한국어·영어·일본어 3개 언어 지원.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">접근성</span>
+        <span class="item-tag">다국어</span>
+        <span class="item-tag">저비용</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">🎙️</div>
+      <div class="item-title">어촌 주민 구술 영상 아카이브 부스</div>
+      <div class="item-desc">1인용 파드 형태 부스 안에서 화진포 1세대~3세대 주민 15인 인터뷰 영상 시청. 10분 분량 5편, 선택 재생 방식. 자막+수어 제공.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Layer 3 핵심</span>
+        <span class="item-tag">구술 아카이브</span>
+        <span class="item-tag">유니버설 디자인</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">📊</div>
+      <div class="item-title">세대별 생업 변화 인터랙티브 인포그래픽</div>
+      <div class="item-desc">1960년대~현재 화진포 주민 생업(어업→관광업→민박) 변화를 대형 터치 인포그래픽으로 표현. 연도 슬라이더로 데이터 변화를 시각화.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Layer 3 데이터</span>
+        <span class="item-tag">터치 인터랙션</span>
+      </div>
+    </div>
+    <div class="item-card d">
+      <div class="item-icon">📝</div>
+      <div class="item-title">발견 노트 스테이션</div>
+      <div class="item-desc">관람객이 "내가 발견한 화진포"를 엽서형 카드에 직접 적는 아날로그 공간. 완성된 카드는 P존 커뮤니티 핀보드로 이동 가능. 디지털 스캔 후 온라인 아카이브 연동.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">Q→P 연결</span>
+        <span class="item-tag">아날로그 참여</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P Zone Items -->
+  <div class="idea-section-header p">
+    <span class="ish-dot"></span>
+    <span class="ish-letter">P</span>
+    <div class="ish-text">
+      <div class="ish-en">Platform Zone · 커뮤니티 플랫폼</div>
+      <div class="ish-ko">지역 주민·생산자·방문객이 만나는 살아있는 공간</div>
+    </div>
+  </div>
+  <div class="items-grid">
+    <div class="item-card p">
+      <div class="item-icon">🛒</div>
+      <div class="item-title">로컬 스토리 마켓 쉘프</div>
+      <div class="item-desc">화진포 인근 생산자 수산물 가공품·농산물·공예품 판매 선반. 상품마다 "생산자 스토리 태그" 부착 의무화. QR로 생산 과정 영상 연결.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">수익 창출</span>
+        <span class="item-tag">로컬 소싱</span>
+        <span class="item-tag">커머스</span>
+      </div>
+    </div>
+    <div class="item-card p">
+      <div class="item-icon">🎨</div>
+      <div class="item-title">로컬 레지던시 오픈 갤러리</div>
+      <div class="item-desc">화진포·고성 지역 작가 순환 전시. 8주 단위 교체. 전시 작품 직접 구매 가능한 커머스 연동. 작가 노트 QR 제공. 벽면 어망 스크린 활용.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">순환 콘텐츠</span>
+        <span class="item-tag">작가 지원</span>
+        <span class="item-tag">판매 연계</span>
+      </div>
+    </div>
+    <div class="item-card p">
+      <div class="item-icon">☕</div>
+      <div class="item-title">화진포 로컬 카페 바</div>
+      <div class="item-desc">화진포산 재료(고성 미역차, 속초 홍시 에이드 등) 메뉴. 미니멀 바 카운터 + 호수뷰 좌석. 주민 바리스타 채용. 체류 시간 연장 및 지역 고용 창출 효과.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">체류 유도</span>
+        <span class="item-tag">지역 고용</span>
+        <span class="item-tag">수익 자립</span>
+      </div>
+    </div>
+    <div class="item-card p">
+      <div class="item-icon">📌</div>
+      <div class="item-title">커뮤니티 핀보드 (아날로그 × 디지털)</div>
+      <div class="item-desc">D존 발견 노트 카드 + Q존 방문 기록이 물리적으로 모이는 3×2m 코르크 보드. 옆에는 실시간 디지털 스크린으로 온라인 참여 내용도 동시 표시.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">커뮤니티 아카이브</span>
+        <span class="item-tag">하이브리드</span>
+      </div>
+    </div>
+    <div class="item-card p">
+      <div class="item-icon">🗓️</div>
+      <div class="item-title">플렉서블 이벤트 스테이지</div>
+      <div class="item-desc">이동식 무대 모듈로 구성. 주말 쿠킹 클래스, 어부 토크, 생태 워크숍, 작가 오픈토크 등 다목적 운영. 접이식 관람석 48석 + 입석 공간.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">핵심 인프라</span>
+        <span class="item-tag">이벤트 수익</span>
+        <span class="item-tag">모듈형</span>
+      </div>
+    </div>
+    <div class="item-card p">
+      <div class="item-icon">📲</div>
+      <div class="item-title">화진포 커뮤니티 디지털 키오스크</div>
+      <div class="item-desc">지역 커뮤니티 앱·SNS 채널 가입, 주변 관광지 큐레이션, 대중교통·숙박 정보 제공 터치 키오스크. 방문 스탬프 발급으로 재방문 인센티브 부여.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">디지털 연결</span>
+        <span class="item-tag">재방문 유도</span>
+      </div>
+    </div>
+    <div class="item-card p">
+      <div class="item-icon">🌱</div>
+      <div class="item-title">화진포 씨앗 교환소</div>
+      <div class="item-desc">화진포 인근 자생식물·텃밭 씨앗을 소분 패키지로 판매·교환. 식물 키우기 엽서 동봉. "내 손에서 자라는 화진포" 컨셉으로 방문 기억을 일상으로 연장.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">기억 연장</span>
+        <span class="item-tag">로컬 굿즈</span>
+        <span class="item-tag">저비용</span>
+      </div>
+    </div>
+    <div class="item-card p">
+      <div class="item-icon">🧵</div>
+      <div class="item-title">화진포 굿즈 워크숍 코너</div>
+      <div class="item-desc">방문객이 직접 만드는 굿즈 워크숍 공간 (화진포 패브릭 파우치, 어망 매크라메 등). 상시 진행 가능한 셀프 키트 방식과 강사 프로그램 방식 병행.</div>
+      <div class="item-tags">
+        <span class="item-tag highlight">체험 수익</span>
+        <span class="item-tag">공예 워크숍</span>
+        <span class="item-tag">SNS 콘텐츠</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     06 LIGHTING
+══════════════════════════════════════ -->
+<div class="wrap" id="lighting">
+  <p class="section-eyebrow">06 · Lighting Plan</p>
+  <h2 class="section-title">조명 계획</h2>
+  <p class="section-desc">존마다 감정과 서사에 맞춘 색온도·조도·연출 방식 차별화.</p>
+
+  <div class="lighting-grid">
+    <div class="light-card">
+      <div class="light-preview" style="background: linear-gradient(to right, #0d2137, #1a4a72, #7ec8e3)"></div>
+      <div class="light-title">Q존 — 심해 앰비언트</div>
+      <div class="light-spec">2,700K / 80~120 lux</div>
+      <div class="light-desc">어둡고 깊은 청남색 앰비언트 LED. 물결 패턴 고보 조명으로 바닥·벽에 물빛 무늬 투영. 입장 시 극적 명암 대비로 몰입감 형성.</div>
+    </div>
+    <div class="light-card">
+      <div class="light-preview" style="background: linear-gradient(to right, #1c6e3d, #4a9a5a, #c8e8c0)"></div>
+      <div class="light-title">D존 L1 — 숲 산광</div>
+      <div class="light-spec">4,000K / 200~300 lux</div>
+      <div class="light-desc">나뭇잎 투과광 연출 패턴 조명. 디오라마는 스팟 + 확산광 혼합. 계절 변화 시퀀스 시 색온도·조도 자동 변환 (봄 3,200K→여름 5,000K).</div>
+    </div>
+    <div class="light-card">
+      <div class="light-preview" style="background: linear-gradient(to right, #2a1a0a, #6b4020, #c8a050)"></div>
+      <div class="light-title">D존 L2 — 역사 앰버</div>
+      <div class="light-spec">2,200K / 120~180 lux</div>
+      <div class="light-desc">1950~60년대 백열등 분위기의 따뜻한 앰버 톤. 별장 모형은 아래에서 위로 향하는 업라이트로 극적 그림자 연출. 사진 아카이브는 단독 스팟.</div>
+    </div>
+    <div class="light-card">
+      <div class="light-preview" style="background: linear-gradient(to right, #1a3a2a, #3a6a4a, #a0c888)"></div>
+      <div class="light-title">D존 L3 — 자연광 시뮬</div>
+      <div class="light-spec">5,000K / 250~350 lux</div>
+      <div class="light-desc">최대한 자연광에 가까운 고연색성(CRI 95+) LED. 인터뷰 영상 부스는 외부 빛 차단 후 화면 조도에 맞춘 보조광. 인포그래픽 월은 균일 확산광.</div>
+    </div>
+    <div class="light-card">
+      <div class="light-preview" style="background: linear-gradient(to right, #7a4010, #c9922a, #f7e0a0)"></div>
+      <div class="light-title">P존 — 골든 아워 마켓</div>
+      <div class="light-spec">3,000K / 300~500 lux</div>
+      <div class="light-desc">일몰 황금빛 따뜻한 조명으로 마켓·카페 구역 전반을 감싼다. 상품 쉘프는 개별 LED 선반 조명으로 제품 연색성 극대화. 이벤트 스테이지는 조광 가능.</div>
+    </div>
+    <div class="light-card">
+      <div class="light-preview" style="background: linear-gradient(to right, #1a1a2a, #2a2a4a, #4a6aaa, #8aaae8)"></div>
+      <div class="light-title">야간 모드 — 호수 야경</div>
+      <div class="light-spec">2,000K / 30~60 lux</div>
+      <div class="light-desc">야간 운영 시 전체 조도 다운 + 청보라 앰비언트 전환. 천장 파이버 옵틱으로 별빛 효과 추가. Q존 리플 글라스 패널이 야간에 가장 극적으로 빛난다.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     07 PROGRAM
+══════════════════════════════════════ -->
+<div class="wrap" id="program">
+  <p class="section-eyebrow">07 · Operation Programs</p>
+  <h2 class="section-title">운영 프로그램 계획</h2>
+  <p class="section-desc">고정 전시 외 상시·정기·특별 프로그램으로 재방문 동기를 설계한다.</p>
+
+  <div class="prog-table-wrap">
+    <table class="prog-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>존</th>
+          <th>프로그램명</th>
+          <th>대상</th>
+          <th>주기</th>
+          <th>형태</th>
+          <th>수익</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>상시</td>
+          <td><span class="pill q">Q</span></td>
+          <td>화진포 사운드 터널 자유 관람</td>
+          <td>전 연령</td>
+          <td>상시</td>
+          <td>자유 관람</td>
+          <td>입장료 포함</td>
+        </tr>
+        <tr>
+          <td>상시</td>
+          <td><span class="pill d">D</span></td>
+          <td>AR 수중 탐사 체험</td>
+          <td>전 연령</td>
+          <td>상시</td>
+          <td>키오스크 자유 이용</td>
+          <td>입장료 포함</td>
+        </tr>
+        <tr>
+          <td>상시</td>
+          <td><span class="pill p">P</span></td>
+          <td>로컬 마켓 & 카페 운영</td>
+          <td>전 연령</td>
+          <td>매일</td>
+          <td>판매/F&B</td>
+          <td>직접 수익</td>
+        </tr>
+        <tr>
+          <td>정기</td>
+          <td><span class="pill d">D</span></td>
+          <td>석호 생태 관찰 클래스</td>
+          <td>초·중등 단체</td>
+          <td>격주 토요일</td>
+          <td>교육 체험 (2h)</td>
+          <td>프로그램비</td>
+        </tr>
+        <tr>
+          <td>정기</td>
+          <td><span class="pill d">D</span></td>
+          <td>어촌 어르신 구술 토크</td>
+          <td>전 연령</td>
+          <td>월 1회</td>
+          <td>강연·대담 (1h)</td>
+          <td>무료 (지자체 지원)</td>
+        </tr>
+        <tr>
+          <td>정기</td>
+          <td><span class="pill p">P</span></td>
+          <td>화진포 시푸드 쿠킹 클래스</td>
+          <td>성인·가족</td>
+          <td>주말 정기</td>
+          <td>체험 (2.5h)</td>
+          <td>프로그램비</td>
+        </tr>
+        <tr>
+          <td>정기</td>
+          <td><span class="pill p">P</span></td>
+          <td>화진포 굿즈 워크숍</td>
+          <td>성인</td>
+          <td>주말 정기</td>
+          <td>공예 체험 (1.5h)</td>
+          <td>재료비+강사비</td>
+        </tr>
+        <tr>
+          <td>정기</td>
+          <td><span class="pill p">P</span></td>
+          <td>지역 생산자 마켓 데이</td>
+          <td>주민·방문객</td>
+          <td>월 1회</td>
+          <td>플리마켓</td>
+          <td>부스 임대비</td>
+        </tr>
+        <tr>
+          <td>특별</td>
+          <td><span class="pill all">전</span></td>
+          <td>화진포 사진 공모전 & 전시</td>
+          <td>전 연령</td>
+          <td>연 2회</td>
+          <td>공모·전시·수상</td>
+          <td>후원사 협찬</td>
+        </tr>
+        <tr>
+          <td>특별</td>
+          <td><span class="pill d">D</span></td>
+          <td>야간 특별 관람 — 호수 야경 모드</td>
+          <td>성인·커플</td>
+          <td>계절별 금·토</td>
+          <td>야간 유료 관람</td>
+          <td>야간 입장료</td>
+        </tr>
+        <tr>
+          <td>특별</td>
+          <td><span class="pill p">P</span></td>
+          <td>화진포 레지던시 작가 오픈 스튜디오</td>
+          <td>전 연령</td>
+          <td>분기 1회</td>
+          <td>작가 토크·판매</td>
+          <td>작품 판매 수수료</td>
+        </tr>
+        <tr>
+          <td>교육</td>
+          <td><span class="pill all">전</span></td>
+          <td>초등 현장 체험학습 패키지</td>
+          <td>초등 단체</td>
+          <td>상시 예약</td>
+          <td>가이드 투어+체험 (3h)</td>
+          <td>단체 입장+프로그램비</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     08 BUDGET
+══════════════════════════════════════ -->
+<div class="wrap" id="budget">
+  <p class="section-eyebrow">08 · Budget Overview</p>
+  <h2 class="section-title">예산 개요 (개략 추정)</h2>
+  <p class="section-desc">
+    총 면적 약 380㎡ 기준 초기 구축 비용 개략 추정. 실제 규모·사양에 따라 조정 필요.
+  </p>
+
+  <div class="budget-grid">
+    <div class="bud-card q">
+      <div class="bud-label">Q존 구축</div>
+      <div class="bud-amount">3,500만원~</div>
+      <div class="bud-desc">사운드 터널, 리플 글라스, 바닥 그래픽, 천장 인스톨레이션, 조명</div>
+    </div>
+    <div class="bud-card d">
+      <div class="bud-label">D존 구축</div>
+      <div class="bud-amount">1.2억원~</div>
+      <div class="bud-desc">디오라마, AR 키오스크, 360° 스크린, 오픈 랩, 영상 제작비 포함</div>
+    </div>
+    <div class="bud-card p">
+      <div class="bud-label">P존 구축</div>
+      <div class="bud-amount">4,500만원~</div>
+      <div class="bud-desc">마켓 쉘프·가구, 카페 설비, 이벤트 스테이지 모듈, 갤러리 조명</div>
+    </div>
+    <div class="bud-card" style="border-left-color:#6b7280">
+      <div class="bud-label">공용 인프라</div>
+      <div class="bud-amount">3,000만원~</div>
+      <div class="bud-desc">전기·음향·네트워크 공사, 사인시스템, 소방·안전, 기초 공사</div>
+    </div>
+    <div class="bud-card op">
+      <div class="bud-label">콘텐츠 제작</div>
+      <div class="bud-amount">2,500만원~</div>
+      <div class="bud-desc">영상 촬영·편집, 구술 아카이브, 그래픽 시스템, 오디오 가이드</div>
+    </div>
+    <div class="bud-card" style="border-left-color:#111827">
+      <div class="bud-label">총 구축 합계</div>
+      <div class="bud-amount" style="color:#111827">약 2.5억원~</div>
+      <div class="bud-desc">지자체 관광 인프라 보조금, 문체부 생활문화 공간 사업 연계 검토</div>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border-radius:var(--r);padding:1.4rem 1.6rem;box-shadow:0 2px 10px rgba(0,0,0,.05);font-size:.85rem;color:var(--sub);line-height:1.7;margin-bottom:2rem;">
+    <strong style="color:var(--ink);display:block;margin-bottom:.4rem;">연간 운영 수익 모델 (예상)</strong>
+    입장료 수입 (1,500원×연 3만명) <strong style="color:var(--ink)">약 4,500만원</strong> +
+    카페·마켓 수익 <strong style="color:var(--ink)">약 3,000만원</strong> +
+    체험 프로그램비 <strong style="color:var(--ink)">약 1,500만원</strong> +
+    이벤트·대관 <strong style="color:var(--ink)">약 600만원</strong>
+    = 연간 총 수입 <strong style="color:var(--ink)">약 9,600만원 이상</strong> (인건비·운영비 별도).
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════════
+     09 TIMELINE
+══════════════════════════════════════ -->
+<div class="wrap" id="timeline">
+  <p class="section-eyebrow">09 · Project Timeline</p>
+  <h2 class="section-title">추진 일정</h2>
+  <p class="section-desc">기획 확정부터 오픈까지 약 12~14개월 공정 기준.</p>
+
+  <div class="timeline">
+    <div class="tl-item active">
+      <div class="tl-phase">Phase 1 · M1~M2</div>
+      <div class="tl-title">기획 확정 & 공간 측량</div>
+      <div class="tl-desc">컨셉 최종 확정, 공간 실측, 관련 기관 협의, 예산 확보 계획 수립</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-phase">Phase 2 · M2~M4</div>
+      <div class="tl-title">설계 & 인허가</div>
+      <div class="tl-desc">실내 설계 도면 작성, 전기·소방 인허가 취득, 소재 및 제작처 선정</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-phase">Phase 3 · M4~M7</div>
+      <div class="tl-title">공사 & 제작</div>
+      <div class="tl-desc">기초 공사 → Q존 → D존 → P존 순차 시공. 전시물 제작 및 영상 콘텐츠 동시 제작</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-phase">Phase 4 · M7~M9</div>
+      <div class="tl-title">콘텐츠 설치 & 테스트</div>
+      <div class="tl-desc">전시물 설치, 사운드·조명·AR 시스템 테스트, 오디오 가이드 녹음, 직원 교육</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-phase">Phase 5 · M9~M10</div>
+      <div class="tl-title">소프트 오픈 & 피드백</div>
+      <div class="tl-desc">지역 주민·단체 초청 시범 운영, 피드백 수렴 및 개선, 미디어 취재 진행</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-phase">Phase 6 · M10+</div>
+      <div class="tl-title">그랜드 오픈</div>
+      <div class="tl-desc">공식 오픈, 첫 이벤트 프로그램 론칭, 운영 모니터링 및 콘텐츠 순환 시작</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="page-footer">
+  <strong>화진포 관광 커뮤니티 · Q·D·P 실내 전시공간<br>디자인 컨셉 & 아이디어 아이템 제안서</strong>
+  Quest · Discovery · Platform<br>
+  탐구하고, 발견하고, 함께 잇다. — Ver 1.0 · 2026
+  <div class="footer-marks">
+    <div class="footer-mark" style="background:var(--q)">Q</div>
+    <div class="footer-mark" style="background:var(--d)">D</div>
+    <div class="footer-mark" style="background:var(--p)">P</div>
+  </div>
+</footer>
+
+</body>
+</html>
