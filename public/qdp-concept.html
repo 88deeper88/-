@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>화진포 Q·D·P 전시공간 컨셉</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --q:  #1a5276;   /* 탐구 — 깊은 남색 */
+      --d:  #1e8449;   /* 발견 — 숲 초록  */
+      --p:  #784212;   /* 플랫폼 — 황토   */
+      --bg: #f4f1eb;
+      --surface: #ffffff;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --radius: 14px;
+      --gap: 2rem;
+    }
+
+    body {
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(160deg, #0d2137 0%, #1a4a6b 55%, #1e6e46 100%);
+      color: #fff;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 60px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-eyebrow {
+      font-size: .8rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .7;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+    }
+    .hero-title span { color: #7ec8e3; }
+    .hero-sub {
+      margin-top: 1.2rem;
+      font-size: 1.05rem;
+      opacity: .85;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 100px;
+      padding: .35rem .9rem;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+    }
+    .badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1080px;
+      margin-inline: auto;
+      padding: var(--gap) 1.5rem;
+    }
+
+    /* ── Section title ── */
+    .section-label {
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: .4rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Concept Overview ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: var(--gap);
+    }
+    .overview-card {
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .overview-card.q { background: var(--q); }
+    .overview-card.d { background: var(--d); }
+    .overview-card.p { background: var(--p); }
+    .overview-card::before {
+      content: attr(data-letter);
+      position: absolute;
+      right: -0.1em; bottom: -0.25em;
+      font-size: 7rem;
+      font-weight: 900;
+      opacity: .12;
+      line-height: 1;
+    }
+    .overview-card .letter {
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: .5rem;
+    }
+    .overview-card .ko-word {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .3rem;
+    }
+    .overview-card .en-word {
+      font-size: .75rem;
+      opacity: .75;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .overview-card p {
+      font-size: .88rem;
+      opacity: .9;
+      line-height: 1.6;
+    }
+
+    /* ── Zone Detail ── */
+    .zone-block {
+      background: var(--surface);
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      display: grid;
+      grid-template-columns: 6px 1fr;
+    }
+    .zone-block .stripe { }
+    .zone-block.q .stripe { background: var(--q); }
+    .zone-block.d .stripe { background: var(--d); }
+    .zone-block.p .stripe { background: var(--p); }
+    .zone-inner { padding: 1.8rem 2rem; }
+    .zone-header {
+      display: flex;
+      align-items: baseline;
+      gap: .75rem;
+      margin-bottom: .9rem;
+      flex-wrap: wrap;
+    }
+    .zone-letter {
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .zone-block.q .zone-letter { color: var(--q); }
+    .zone-block.d .zone-letter { color: var(--d); }
+    .zone-block.p .zone-letter { color: var(--p); }
+    .zone-name { font-size: 1.15rem; font-weight: 700; }
+    .zone-tag {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .6rem;
+      border-radius: 100px;
+      color: #fff;
+    }
+    .zone-block.q .zone-tag { background: var(--q); }
+    .zone-block.d .zone-tag { background: var(--d); }
+    .zone-block.p .zone-tag { background: var(--p); }
+    .zone-desc { font-size: .95rem; color: var(--muted); margin-bottom: 1.1rem; }
+    .zone-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: .75rem;
+    }
+    .feature-item {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: .85rem 1rem;
+    }
+    .feature-item .fi-title {
+      font-size: .85rem;
+      font-weight: 700;
+      margin-bottom: .3rem;
+    }
+    .feature-item .fi-desc {
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── Flow ── */
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: .5rem;
+      margin-bottom: var(--gap);
+    }
+    .flow-node {
+      flex-shrink: 0;
+      background: var(--surface);
+      border-radius: 10px;
+      padding: .9rem 1.1rem;
+      text-align: center;
+      min-width: 110px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .flow-node .fn-icon { font-size: 1.5rem; margin-bottom: .25rem; }
+    .flow-node .fn-label { font-size: .78rem; font-weight: 700; }
+    .flow-node .fn-sub { font-size: .68rem; color: var(--muted); margin-top: .15rem; }
+    .flow-arrow {
+      flex-shrink: 0;
+      font-size: 1.3rem;
+      color: var(--muted);
+      padding: 0 .5rem;
+    }
+
+    /* ── Design Principles ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+      margin-bottom: var(--gap);
+    }
+    .principle-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+    .principle-num {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+    .principle-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: .5rem;
+    }
+    .principle-desc {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Program ── */
+    .program-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      margin-bottom: var(--gap);
+      font-size: .88rem;
+    }
+    .program-table th {
+      background: #1c1c1c;
+      color: #fff;
+      padding: .8rem 1rem;
+      text-align: left;
+      font-size: .75rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .program-table td {
+      padding: .85rem 1rem;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    .program-table tr:last-child td { border-bottom: none; }
+    .program-table tr:hover td { background: #fafafa; }
+    .zone-pill {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      border-radius: 100px;
+      padding: .15rem .55rem;
+      color: #fff;
+      letter-spacing: .04em;
+    }
+    .zone-pill.q { background: var(--q); }
+    .zone-pill.d { background: var(--d); }
+    .zone-pill.p { background: var(--p); }
+
+    /* ── Footer ── */
+    .page-footer {
+      background: #1c1c1c;
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      font-size: .78rem;
+      padding: 2rem 1rem;
+    }
+    .page-footer strong { color: rgba(255,255,255,.85); }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .zone-block { grid-template-columns: 5px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ━━━ HERO ━━━ -->
+<section class="hero">
+  <p class="hero-eyebrow">화진포 관광 커뮤니티 · 실내 전시공간</p>
+  <h1 class="hero-title"><span>Q·D·P</span></h1>
+  <p class="hero-sub">Quest · Discovery · Platform<br>탐구하고, 발견하고, 함께 잇는 공간</p>
+  <div class="hero-badges">
+    <span class="badge"><span class="badge-dot" style="background:#7ec8e3"></span>Q — Quest 탐구</span>
+    <span class="badge"><span class="badge-dot" style="background:#6dbb8a"></span>D — Discovery 발견</span>
+    <span class="badge"><span class="badge-dot" style="background:#d4a76a"></span>P — Platform 플랫폼</span>
+  </div>
+</section>
+
+<!-- ━━━ 컨셉 개요 ━━━ -->
+<div class="container">
+  <p class="section-label">Concept Overview</p>
+  <h2 class="section-title">세 개의 축으로 읽는 화진포</h2>
+
+  <div class="overview-grid">
+    <div class="overview-card q" data-letter="Q">
+      <div class="letter">Q</div>
+      <div class="ko-word">탐구 · 질문</div>
+      <div class="en-word">Quest</div>
+      <p>방문객이 "화진포란 무엇인가?"라는 질문을 스스로 던지게 만드는 도입부. 호기심을 자극하는 질문형 전시로 몰입을 유도한다.</p>
+    </div>
+    <div class="overview-card d" data-letter="D">
+      <div class="letter">D</div>
+      <div class="ko-word">발견 · 깊이</div>
+      <div class="en-word">Discovery</div>
+      <p>화진포의 생태·역사·문화를 레이어별로 발견하는 핵심 전시 구역. 정보를 강요하지 않고 스스로 찾아가게 설계한다.</p>
+    </div>
+    <div class="overview-card p" data-letter="P">
+      <div class="letter">P</div>
+      <div class="ko-word">플랫폼 · 연결</div>
+      <div class="en-word">Platform</div>
+      <p>지역 주민·생산자·방문객이 만나는 커뮤니티 허브. 로컬 콘텐츠 교환, 체험 프로그램, 커머스가 한 공간에서 작동한다.</p>
+    </div>
+  </div>
+
+  <!-- ━━━ 존 상세 ━━━ -->
+  <p class="section-label">Zone Details</p>
+  <h2 class="section-title">공간별 구성</h2>
+
+  <!-- Q Zone -->
+  <div class="zone-block q">
+    <div class="stripe"></div>
+    <div class="zone-inner">
+      <div class="zone-header">
+        <span class="zone-letter">Q</span>
+        <span class="zone-name">Quest Zone — 탐구의 입구</span>
+        <span class="zone-tag">입구 · 전이 공간</span>
+      </div>
+      <p class="zone-desc">
+        전시 전체의 도입부이자 감각의 전환점. "당신은 화진포를 얼마나 알고 있나요?"라는 질문을 시각·청각·촉각으로 던진다.
+        관람객이 스스로 탐구자가 되도록 프레이밍하는 공간이다.
+      </p>
+      <div class="zone-features">
+        <div class="feature-item">
+          <div class="fi-title">🌊 호수 소리 터널</div>
+          <div class="fi-desc">입구 복도를 화진포 호수의 바람·파도 사운드로 채워 감각적 전환을 유도</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">❓ 질문 월</div>
+          <div class="fi-desc">"이 호수는 왜 바닷가에 있을까?" 등 레이어드 질문 패널 — 답은 D존에서 발견</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">🗺️ 화진포 타임라인</div>
+          <div class="fi-desc">지질 형성부터 현재까지 시간 축을 바닥 그래픽으로 걷는 인터랙티브 동선</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">📷 방문객 기록 스팟</div>
+          <div class="fi-desc">첫 방문 인상을 QR 태그로 남기고 P존에서 커뮤니티 아카이브로 연결</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D Zone -->
+  <div class="zone-block d">
+    <div class="stripe"></div>
+    <div class="zone-inner">
+      <div class="zone-header">
+        <span class="zone-letter">D</span>
+        <span class="zone-name">Discovery Zone — 발견의 레이어</span>
+        <span class="zone-tag">핵심 전시 · 체험</span>
+      </div>
+      <p class="zone-desc">
+        Q존의 질문에 대한 답을 3개의 레이어(자연 · 역사 · 사람)로 탐색하는 전시 심장부.
+        단순한 설명판 대신 스토리텔링과 체험 요소로 스스로 발견하게 구성한다.
+      </p>
+      <div class="zone-features">
+        <div class="feature-item">
+          <div class="fi-title">🌿 Layer 1 · 자연생태</div>
+          <div class="fi-desc">화진포 석호 생태계 디오라마 + AR 수중 탐사 키오스크. 철새·담수어·갈대 생태 정보</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">🏛️ Layer 2 · 역사별장</div>
+          <div class="fi-desc">김일성·이기붕·이승만 별장의 공간 재현 모형과 냉전 시대 동해안 서사 아카이브</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">👤 Layer 3 · 지역 사람들</div>
+          <div class="fi-desc">화진포 어촌 주민 구술 영상 아카이브 + 세대별 생업 변화 인포그래픽</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">🔬 오픈 랩 테이블</div>
+          <div class="fi-desc">석호 퇴적물 샘플, 생물 표본 관찰 체험 — 어린이·청소년 교육 프로그램 연계</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">🎞️ 360° 몰입 스크린</div>
+          <div class="fi-desc">사계절 화진포 항공·수중 영상 루프 — 물리 공간의 계절 제약 없이 전체 경관 전달</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">📝 발견 노트 스테이션</div>
+          <div class="fi-desc">관람객이 발견 내용을 기록하는 엽서형 카드 → P존 공유 보드로 이동</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P Zone -->
+  <div class="zone-block p">
+    <div class="stripe"></div>
+    <div class="zone-inner">
+      <div class="zone-header">
+        <span class="zone-letter">P</span>
+        <span class="zone-name">Platform Zone — 연결의 광장</span>
+        <span class="zone-tag">커뮤니티 · 커머스 · 참여</span>
+      </div>
+      <p class="zone-desc">
+        전시의 출구이자 지역 커뮤니티로 나아가는 게이트웨이. 로컬 생산자, 작가, 주민과 방문객이
+        콘텐츠·상품·경험을 교환하는 살아있는 플랫폼 공간이다.
+      </p>
+      <div class="zone-features">
+        <div class="feature-item">
+          <div class="fi-title">🛒 로컬 마켓 쉘프</div>
+          <div class="fi-desc">화진포 인근 생산자의 수산물 가공품·농산물·공예품 판매 — 스토리 태그 부착 의무화</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">🎨 레지던시 갤러리</div>
+          <div class="fi-desc">지역 작가·사진가의 화진포 시리즈 순환 전시 — 판매 연계 가능한 오픈 갤러리</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">📌 커뮤니티 핀보드</div>
+          <div class="fi-desc">D존 발견 노트 카드 + Q존 방문 기록이 모이는 아날로그 아카이브 벽</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">☕ 로컬 카페 바</div>
+          <div class="fi-desc">화진포 인근 특산 재료 음료 — 체류 시간 연장 및 주민 고용 창출</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">🗓️ 이벤트 스테이지</div>
+          <div class="fi-desc">주말 로컬 쿠킹 클래스, 어부 이야기 토크, 생태 워크숍 운영 가능한 플렉서블 무대</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-title">📲 디지털 연결 키오스크</div>
+          <div class="fi-desc">화진포 커뮤니티 앱·SNS 채널 연결, 주변 관광지 큐레이션 정보 제공</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━ 관람 동선 ━━━ -->
+  <p class="section-label">Visitor Flow</p>
+  <h2 class="section-title">관람 동선</h2>
+
+  <div class="flow-row">
+    <div class="flow-node">
+      <div class="fn-icon">🚪</div>
+      <div class="fn-label">입장</div>
+      <div class="fn-sub">오리엔테이션</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-top: 3px solid var(--q)">
+      <div class="fn-icon">❓</div>
+      <div class="fn-label">Q존</div>
+      <div class="fn-sub">질문 · 도입</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-top: 3px solid var(--d)">
+      <div class="fn-icon">🌿</div>
+      <div class="fn-label">D존 L1</div>
+      <div class="fn-sub">자연생태</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-top: 3px solid var(--d)">
+      <div class="fn-icon">🏛️</div>
+      <div class="fn-label">D존 L2</div>
+      <div class="fn-sub">역사별장</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-top: 3px solid var(--d)">
+      <div class="fn-icon">👤</div>
+      <div class="fn-label">D존 L3</div>
+      <div class="fn-sub">지역 사람</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-top: 3px solid var(--p)">
+      <div class="fn-icon">🛒</div>
+      <div class="fn-label">P존</div>
+      <div class="fn-sub">커뮤니티</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="fn-icon">🌅</div>
+      <div class="fn-label">퇴장</div>
+      <div class="fn-sub">지역 탐방 연계</div>
+    </div>
+  </div>
+
+  <!-- ━━━ 설계 원칙 ━━━ -->
+  <p class="section-label">Design Principles</p>
+  <h2 class="section-title">공간 설계 원칙</h2>
+
+  <div class="principles-grid">
+    <div class="principle-card">
+      <div class="principle-num">01</div>
+      <div class="principle-title">질문 우선, 답 나중</div>
+      <div class="principle-desc">정보를 일방 전달하지 않는다. 질문을 먼저 심어 방문객 스스로 발견하게 설계한다.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">02</div>
+      <div class="principle-title">로컬 소재 100%</div>
+      <div class="principle-desc">전시 콘텐츠·상품·음식 모두 화진포 반경 내 생산자·작가·주민으로 구성한다.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">03</div>
+      <div class="principle-title">레이어드 체험 깊이</div>
+      <div class="principle-desc">30분 관람도, 2시간 깊은 탐구도 가능한 밀도 차별화 구조. 선택권을 방문객에게 준다.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">04</div>
+      <div class="principle-title">살아있는 공간</div>
+      <div class="principle-desc">계절·이벤트마다 P존이 업데이트된다. 재방문 이유를 만드는 변화하는 전시.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">05</div>
+      <div class="principle-title">디지털-물리 연속성</div>
+      <div class="principle-desc">QR·앱·SNS로 전시 경험이 실외 탐방, 온라인 커뮤니티로 자연스럽게 확장된다.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">06</div>
+      <div class="principle-title">수익 자립 구조</div>
+      <div class="principle-desc">P존 마켓·카페·이벤트가 전시 운영비를 일부 충당하는 지속 가능한 재정 모델.</div>
+    </div>
+  </div>
+
+  <!-- ━━━ 프로그램 계획 ━━━ -->
+  <p class="section-label">Program Plan</p>
+  <h2 class="section-title">운영 프로그램 계획</h2>
+
+  <table class="program-table">
+    <thead>
+      <tr>
+        <th>존</th>
+        <th>프로그램명</th>
+        <th>대상</th>
+        <th>주기</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="zone-pill q">Q</span></td>
+        <td>화진포 수수께끼 투어</td>
+        <td>초등학생 단체</td>
+        <td>주 2회</td>
+        <td>학교 연계 교육 과정</td>
+      </tr>
+      <tr>
+        <td><span class="zone-pill d">D</span></td>
+        <td>석호 생태 관찰 클래스</td>
+        <td>가족, 청소년</td>
+        <td>격주 토요일</td>
+        <td>오픈 랩 테이블 활용</td>
+      </tr>
+      <tr>
+        <td><span class="zone-pill d">D</span></td>
+        <td>어부 할아버지의 화진포 이야기</td>
+        <td>전 연령</td>
+        <td>월 1회</td>
+        <td>구술 아카이브 연계 토크</td>
+      </tr>
+      <tr>
+        <td><span class="zone-pill p">P</span></td>
+        <td>로컬 시푸드 쿠킹 클래스</td>
+        <td>성인, 관광객</td>
+        <td>주말 정기</td>
+        <td>P존 이벤트 스테이지</td>
+      </tr>
+      <tr>
+        <td><span class="zone-pill p">P</span></td>
+        <td>화진포 사진 공모전</td>
+        <td>전 연령</td>
+        <td>연 2회</td>
+        <td>레지던시 갤러리 순환 전시</td>
+      </tr>
+      <tr>
+        <td><span class="zone-pill p">P</span></td>
+        <td>지역 생산자 마켓 데이</td>
+        <td>지역 주민 · 관광객</td>
+        <td>월 1회</td>
+        <td>로컬 마켓 쉘프 확장 운영</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- ━━━ FOOTER ━━━ -->
+<footer class="page-footer">
+  <strong>화진포 관광 커뮤니티 · Q·D·P 전시공간 컨셉</strong><br>
+  Quest · Discovery · Platform — 탐구하고, 발견하고, 함께 잇는 공간
+</footer>
+
+</body>
+</html>
