@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>30일 세션 리포트</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      align-items: flex-start;
+      padding: 2rem 1rem;
+    }
+
+    .report-wrapper {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .report-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .report-header h1 {
+      margin-bottom: 0;
+      text-align: left;
+      font-size: 1.4rem;
+    }
+
+    .report-header .meta {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .stat-card .label {
+      font-size: 0.78rem;
+      color: #6b7280;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+    }
+
+    .stat-card .sub {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 0.3rem;
+    }
+
+    .chart-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      padding: 1.5rem;
+    }
+
+    .chart-card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 1.25rem;
+    }
+
+    canvas {
+      width: 100% !important;
+      display: block;
+    }
+
+    .table-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .table-card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      background: #f9fafb;
+      color: #6b7280;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    tbody td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #f3f4f6;
+      color: #374151;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover td {
+      background: #f9fafb;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #eef2ff;
+      color: #4f46e5;
+    }
+
+    .no-activity {
+      color: #d1d5db;
+    }
+
+    .nav-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="report-wrapper">
+    <div class="report-header">
+      <h1>30일 세션 리포트</h1>
+      <div style="display:flex;gap:.75rem;align-items:center;">
+        <span class="meta" id="range-label"></span>
+        <a href="/" style="font-size:.85rem;color:#6366f1;text-decoration:none;font-weight:600;">&larr; 대시보드</a>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">총 로그인</div>
+        <div class="value" id="stat-total">—</div>
+        <div class="sub">최근 30일</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">순 방문자</div>
+        <div class="value" id="stat-users">—</div>
+        <div class="sub">고유 계정</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">일 평균 로그인</div>
+        <div class="value" id="stat-avg">—</div>
+        <div class="sub">최근 30일 기준</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">최다 활동일</div>
+        <div class="value" id="stat-peak-count">—</div>
+        <div class="sub" id="stat-peak-date">—</div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h2>일별 로그인 추이</h2>
+      <canvas id="chart" height="220"></canvas>
+    </div>
+
+    <div class="table-card">
+      <h2>일별 세부 현황</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>로그인 수</th>
+            <th>순 방문자</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    async function loadReport() {
+      const res = await fetch('/api/report/30day');
+      if (!res.ok) { location.href = '/login'; return; }
+      const data = await res.json();
+
+      // range label
+      const first = data.days[0]?.date;
+      const last = data.days[data.days.length - 1]?.date;
+      document.getElementById('range-label').textContent = first && last ? `${first} ~ ${last}` : '';
+
+      // summary stats
+      document.getElementById('stat-total').textContent = data.totalLogins.toLocaleString();
+      document.getElementById('stat-users').textContent = data.uniqueUsers.toLocaleString();
+      const avg = data.days.length ? (data.totalLogins / 30).toFixed(1) : '0';
+      document.getElementById('stat-avg').textContent = avg;
+      if (data.peakDay) {
+        document.getElementById('stat-peak-count').textContent = data.peakDay.logins;
+        document.getElementById('stat-peak-date').textContent = data.peakDay.date;
+      }
+
+      // table
+      const tbody = document.getElementById('table-body');
+      [...data.days].reverse().forEach((d) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${d.date}</td>
+          <td>${d.logins > 0 ? `<span class="badge">${d.logins}</span>` : '<span class="no-activity">0</span>'}</td>
+          <td>${d.uniqueUsers}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // chart
+      drawChart(data.days);
+    }
+
+    function drawChart(days) {
+      const canvas = document.getElementById('chart');
+      const ctx = canvas.getContext('2d');
+
+      // retina
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const W = rect.width - 48; // card padding
+      const H = 220;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr);
+
+      const padL = 36, padR = 12, padT = 16, padB = 40;
+      const chartW = W - padL - padR;
+      const chartH = H - padT - padB;
+
+      const values = days.map((d) => d.logins);
+      const maxVal = Math.max(...values, 1);
+
+      // gridlines
+      ctx.strokeStyle = '#f3f4f6';
+      ctx.lineWidth = 1;
+      const ticks = 4;
+      for (let i = 0; i <= ticks; i++) {
+        const y = padT + chartH - (i / ticks) * chartH;
+        ctx.beginPath();
+        ctx.moveTo(padL, y);
+        ctx.lineTo(padL + chartW, y);
+        ctx.stroke();
+
+        ctx.fillStyle = '#9ca3af';
+        ctx.font = '10px sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(Math.round((i / ticks) * maxVal), padL - 6, y + 3);
+      }
+
+      // bars
+      const barCount = days.length;
+      const barW = Math.max(4, (chartW / barCount) * 0.65);
+      const gap = chartW / barCount;
+
+      days.forEach((d, i) => {
+        const x = padL + i * gap + (gap - barW) / 2;
+        const barH = d.logins === 0 ? 0 : Math.max(2, (d.logins / maxVal) * chartH);
+        const y = padT + chartH - barH;
+
+        // gradient fill
+        const grad = ctx.createLinearGradient(0, y, 0, padT + chartH);
+        grad.addColorStop(0, '#6366f1');
+        grad.addColorStop(1, '#a5b4fc');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.roundRect(x, y, barW, barH, [3, 3, 0, 0]);
+        ctx.fill();
+
+        // x-axis label: every 5 days or first/last
+        if (i % 5 === 0 || i === barCount - 1) {
+          ctx.fillStyle = '#9ca3af';
+          ctx.font = '9px sans-serif';
+          ctx.textAlign = 'center';
+          const short = d.date.slice(5); // MM-DD
+          ctx.fillText(short, x + barW / 2, padT + chartH + 14);
+        }
+      });
+
+      // x-axis line
+      ctx.strokeStyle = '#e5e7eb';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padL, padT + chartH);
+      ctx.lineTo(padL + chartW, padT + chartH);
+      ctx.stroke();
+    }
+
+    loadReport();
+  </script>
+</body>
+</html>

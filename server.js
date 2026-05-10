@@ -9,6 +9,9 @@ const PORT = process.env.PORT || 3000;
 // In-memory user store (replace with a database in production)
 const users = {};
 
+// Session activity log — each entry: { username, timestamp (ms) }
+const sessionLog = [];
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -57,6 +60,7 @@ app.post('/auth/register', async (req, res) => {
   const hash = await bcrypt.hash(password, 12);
   users[username] = { username, password: hash };
   req.session.userId = username;
+  sessionLog.push({ username, timestamp: Date.now() });
   res.json({ success: true });
 });
 
@@ -73,6 +77,7 @@ app.post('/auth/login', async (req, res) => {
   }
 
   req.session.userId = username;
+  sessionLog.push({ username, timestamp: Date.now() });
   res.json({ success: true });
 });
 
@@ -84,6 +89,45 @@ app.post('/auth/logout', (req, res) => {
 
 app.get('/api/me', requireAuth, (req, res) => {
   res.json({ username: req.session.userId });
+});
+
+app.get('/report', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'report.html'));
+});
+
+app.get('/api/report/30day', requireAuth, (req, res) => {
+  const now = Date.now();
+  const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
+
+  const recent = sessionLog.filter((e) => e.timestamp >= thirtyDaysAgo);
+
+  // Build a map: YYYY-MM-DD -> { logins, users: Set }
+  const byDay = {};
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now - i * 24 * 60 * 60 * 1000);
+    const key = d.toISOString().slice(0, 10);
+    byDay[key] = { date: key, logins: 0, uniqueUsers: new Set() };
+  }
+
+  for (const entry of recent) {
+    const key = new Date(entry.timestamp).toISOString().slice(0, 10);
+    if (byDay[key]) {
+      byDay[key].logins += 1;
+      byDay[key].uniqueUsers.add(entry.username);
+    }
+  }
+
+  const days = Object.values(byDay).map((d) => ({
+    date: d.date,
+    logins: d.logins,
+    uniqueUsers: d.uniqueUsers.size,
+  }));
+
+  const totalLogins = recent.length;
+  const uniqueUsers = new Set(recent.map((e) => e.username)).size;
+  const peakDay = days.reduce((a, b) => (b.logins > a.logins ? b : a), days[0]);
+
+  res.json({ days, totalLogins, uniqueUsers, peakDay });
 });
 
 app.listen(PORT, () => {

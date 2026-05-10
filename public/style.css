@@ -130,3 +130,21 @@ button.secondary:hover {
   text-align: center;
   margin-bottom: 1rem;
 }
+
+.report-link {
+  display: block;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.625rem;
+  background: #eef2ff;
+  color: #4f46e5;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.report-link:hover {
+  background: #e0e7ff;
+}
